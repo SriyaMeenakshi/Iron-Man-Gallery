@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Man Image Gallery</title>
+    <style>
+        /* --- General Styling & Iron Man Theme --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #e0e0e0;
+            margin: 0;
+            padding: 2em;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            color: #AA0404; /* Iron Man Red */
+            text-transform: uppercase;
+            font-size: 2.5em;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            color: #D4AF37; /* Iron Man Gold */
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-top: 2em;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 2em auto;
+            padding: 2em;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .task {
+            margin-bottom: 3em;
+        }
+
+        /* --- Task 1: Clickable Thumbnail Gallery --- */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid #333;
+        }
+
+        .gallery-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #D4AF37;
+        }
+
+        /* The "Lightbox" overlay (hidden by default) */
+        .lightbox {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* This is the magic: when a link points to this ID, it becomes the target and is displayed */
+        .lightbox:target {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            border: 3px solid #D4AF37;
+            border-radius: 5px;
+        }
+
+        /* The Close Button */
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .lightbox .close:hover,
+        .lightbox .close:focus {
+            color: #AA0404;
+            cursor: pointer;
+        }
+
+        /* --- Task 2: Automatic CSS Slideshow --- */
+        .slideshow-container {
+            max-width: 800px;
+            height: 450px; /* Set a fixed height */
+            position: relative;
+            margin: auto;
+            overflow: hidden; /* Hide parts of images that are outside the container */
+            border-radius: 8px;
+            border: 2px solid #333;
+        }
+
+        .slideshow-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area without distortion */
+            opacity: 0; /* All images are invisible initially */
+            
+            /* Animation properties: name, duration, timing-function, iteration-count */
+            animation: fade-slideshow 12s linear infinite;
+        }
+
+        /* Animation keyframes for the fade effect */
+        @keyframes fade-slideshow {
+            0%   { opacity: 0; }
+            15%  { opacity: 1; } /* Fade in */
+            33%  { opacity: 1; } /* Hold */
+            48%  { opacity: 0; } /* Fade out */
+            100% { opacity: 0; }
+        }
+
+        /* Stagger the animations with delays */
+        .slideshow-container img:nth-child(1) {
+            animation-delay: 0s; /* Starts immediately */
+        }
+        .slideshow-container img:nth-child(2) {
+            animation-delay: 4s; /* Starts after 4 seconds (12s total / 3 images) */
+        }
+        .slideshow-container img:nth-child(3) {
+            animation-delay: 8s; /* Starts after 8 seconds */
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <h1>Iron Man</h1>
+        
+        <!-- ============================================= -->
+        <!-- TASK 1: IMAGE GALLERY WITH CLICK-TO-ENLARGE   -->
+        <!-- ============================================= -->
+        <section class="task">
+            <h2>Image Gallery</h2>
+            <div class="gallery-container">
+                <!-- Each 'a' tag links to a lightbox ID below -->
+                <a href="#img1"><img src="https://i.ibb.co/L5hY5Xb/gallery-1.jpg" alt="Iron Man Mark 85 armor"></a>
+                <a href="#img2"><img src="https://i.ibb.co/3k03P3B/gallery-2.jpg" alt="Iron Man snapping his fingers"></a>
+                <a href="#img3"><img src="https://i.ibb.co/wJ7c3wF/gallery-3.jpg" alt="Iron Man Mark 46 from Civil War"></a>
+                <a href="#img4"><img src="https://i.ibb.co/QJq2bN6/gallery-4.jpg" alt="Iron Man helmet close up"></a>
+            </div>
+        </section>
+        
+        <!-- Hidden Lightbox Elements -->
+        <!-- The ID of each div matches the href in the 'a' tags above -->
+        <div id="img1" class="lightbox">
+            <a href="#" class="close">×</a>
+            <img src="https://i.ibb.co/L5hY5Xb/gallery-1.jpg" alt="Full size of Iron Man Mark 85 armor">
+        </div>
+
+        <div id="img2" class="lightbox">
+            <a href="#" class="close">×</a>
+            <img src="https://i.ibb.co/3k03P3B/gallery-2.jpg" alt="Full size of Iron Man snapping his fingers">
+        </div>
+
+        <div id="img3" class="lightbox">
+            <a href="#" class="close">×</a>
+            <img src="https://i.ibb.co/wJ7c3wF/gallery-3.jpg" alt="Full size of Iron Man Mark 46 from Civil War">
+        </div>
+
+        <div id="img4" class="lightbox">
+            <a href="#" class="close">×</a>
+            <img src="https://i.ibb.co/QJq2bN6/gallery-4.jpg" alt="Full size of Iron Man helmet close up">
+        </div>
+
+        <!-- ============================================= -->
+        <!-- TASK 2: AUTOMATIC IMAGE SLIDESHOW           -->
+        <!-- ============================================= -->
+        <section class="task">
+            <h2>Automatic Slideshow</h2>
+            <div class="slideshow-container">
+                <img src="https://i.ibb.co/7C96T52/slide-1.jpg" alt="Iron Man from Iron Man 3">
+                <img src="https://i.ibb.co/tZ5yK6P/slide-2.jpg" alt="Iron Man landing in The Avengers">
+                <img src="https://i.ibb.co/jGGxW3K/slide-3.jpg" alt="Avengers Endgame poster featuring Iron Man">
+            </div>
+        </section>
+        
+    </main>
+
+</body>
+</html>
