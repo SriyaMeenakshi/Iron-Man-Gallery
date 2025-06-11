@@ -4,9 +4,7 @@
 
 This project is a static webpage built entirely with HTML and CSS, showcasing a tribute to Iron Man. It demonstrates advanced CSS techniques for creating interactive and animated components without relying on JavaScript.
 
-**[Live Demo Link Here]** <!-- Add your GitHub Pages link here -->
 
-![Project Screenshot](images/screenshot.png) <!-- It's highly recommended to add a screenshot of your project -->
 
 ---
 
